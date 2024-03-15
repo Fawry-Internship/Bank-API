@@ -2,7 +2,7 @@ package org.example.bankapi.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.bankapi.Repository.AccountRepository;
+import org.example.bankapi.repository.AccountRepository;
 import org.example.bankapi.entity.Account;
 import org.example.bankapi.exception.RecordNotFoundException;
 import org.example.bankapi.mapper.TransactionMapper;

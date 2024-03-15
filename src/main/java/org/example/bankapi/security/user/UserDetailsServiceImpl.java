@@ -1,7 +1,7 @@
 package org.example.bankapi.security.user;
 
 import lombok.RequiredArgsConstructor;
-import org.example.bankapi.Repository.AccountRepository;
+import org.example.bankapi.repository.AccountRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

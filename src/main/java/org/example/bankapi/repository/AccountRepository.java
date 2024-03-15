@@ -1,8 +1,7 @@
-package org.example.bankapi.Repository;
+package org.example.bankapi.repository;
 
 import org.example.bankapi.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
