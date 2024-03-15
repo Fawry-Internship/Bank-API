@@ -28,6 +28,3 @@ This project is a simple banking system API that allows users to authenticate, r
 |  4. | Withdraw | Withdraw money from an account         | `POST /bank/transaction/withdraw`     |
 |  5. | View Account Balance     | View balance of an account           | `GET /bank/account/balance/{accountId}` |
 |  6. | View Account Transactions| View transactions of an account      | `GET /bank/account/transactions/{accountId}` |
-
-## ERD
-![Screenshot (1138)](https://github.com/sameh-tarek/Bank-Api/assets/108232157/b2fa83e5-de66-48bc-8373-a639d133a08b)
