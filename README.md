@@ -30,4 +30,4 @@ This project is a simple banking system API that allows users to authenticate, r
 |  6. | View Account Transactions| View transactions of an account      | `GET /bank/account/transactions/{accountId}` |
 
 ## ERD
-![Screenshot (1138).png](..%2F..%2F..%2F..%2F8658998653689652%2FScreenshots%2FScreenshot%20%281138%29.png)
+![Screenshot (1138)](https://github.com/sameh-tarek/Bank-Api/assets/108232157/b2fa83e5-de66-48bc-8373-a639d133a08b)
