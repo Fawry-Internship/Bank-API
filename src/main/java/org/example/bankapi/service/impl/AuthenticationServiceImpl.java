@@ -74,7 +74,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private static String generateCardNumber() {
         UUID uuid = UUID.randomUUID();
-        return uuid.toString().replaceAll("-", "").substring(0, 16);
+        String cardNumber = Long.toString(uuid.getMostSignificantBits(), 10);
+        return cardNumber.substring(0, 16);
     }
 
 }

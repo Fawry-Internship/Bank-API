@@ -25,7 +25,7 @@ public class Account implements UserDetails {
     private long id;
 
     @Column(unique = true)
-    @Size(min = 16, max = 16, message = "card number must be 16")
+    @Size(min = 16, max = 16, message = "card number must be 16 characters long")
     private String cardNumber;
 
     @NotBlank(message = "Please provide a name")
