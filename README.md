@@ -28,3 +28,26 @@ This project is a simple banking system API that allows users to authenticate, r
 |  4. | Withdraw | Withdraw money from an account         | `POST /bank/transaction/withdraw`     |
 |  5. | View Account Balance     | View balance of an account           | `GET /bank/account/balance/{accountId}` |
 |  6. | View Account Transactions| View transactions of an account      | `GET /bank/account/transactions/{accountId}` |
+
+## ERD
+
+```mermaid
+erDiagram
+       ACCOUNTS {
+        Long id PK
+        String card_number "Unique"
+        String name 
+        String email
+        String password 
+        double balance 
+        boolean enable "Active or Not"
+    }
+     ACCOUNTS ||--o{ TRANSACTIONS : have
+    TRANSACTIONS {
+        Long id PK
+        Long account_id FK "fk referencing ACCOUNTS.id"
+        double amount
+        String transaction_type
+        LocalDateTime created_at
+        String payment_method "credit card"
+    }

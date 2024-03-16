@@ -7,7 +7,6 @@ import org.example.bankapi.model.auth.AuthenticationRequest;
 import org.example.bankapi.model.auth.AuthenticationResponse;
 import org.example.bankapi.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@Validated @RequestBody AuthenticationRequest authenticationRequest){
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest){
         AuthenticationResponse response = authenticationService.authenticate(authenticationRequest);
         return ResponseEntity.ok(response);
     }
