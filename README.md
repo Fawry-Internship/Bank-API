@@ -47,7 +47,7 @@ erDiagram
         Long id PK
         Long account_id FK "fk referencing ACCOUNTS.id"
         double amount
-        String transaction_type
+        String transaction_type "DEPOSIT or WITHDRAW"
         LocalDateTime created_at
         String payment_method "credit card"
     }
