@@ -1,10 +1,7 @@
 package org.example.bankapi.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +34,7 @@ public class Account implements UserDetails {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
-    @Positive(message = "balance must be positive")
+    @PositiveOrZero(message = "balance must be positive or zero")
     private double balance;
 
     private boolean enable = true ;

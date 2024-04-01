@@ -2,6 +2,7 @@ package org.example.bankapi.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.bankapi.entity.enums.TransactionType;
 import org.example.bankapi.repository.AccountRepository;
 import org.example.bankapi.repository.TransactionRepository;
 import org.example.bankapi.entity.Account;
@@ -35,7 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
         accountRepository.save(cardAccount);
         log.info("Balance for Account with card Number {}, After update is {}", cardNumber, cardAccount.getBalance());
 
-        saveTransaction(cardAccount, amount, "Deposit");
+        saveTransaction(cardAccount, amount, TransactionType.DEPOSIT);
         return "success";
     }
 
@@ -52,26 +53,29 @@ public class TransactionServiceImpl implements TransactionService {
 
         if(accountBalance < amount){
             log.error("Insufficient Balance for withdraw the current balance is {}", accountBalance);
-            throw new RecordNotFoundException("Insufficient Balance");
+            throw new RecordNotFoundException("Insufficient Balance, The current balance is: "+ accountBalance);
         }
 
         cardAccount.setBalance(accountBalance - amount);
         accountRepository.save(cardAccount);
         log.info("Balance for Account with card Number {}, After update is {}", cardNumber, cardAccount.getBalance());
 
-        saveTransaction(cardAccount, amount, "ًWithdraw");
+        saveTransaction(cardAccount, amount, TransactionType.WITHDRAW);
         return "success";
     }
 
 
     private Account IsValidCard(String cardNumber){
         Account account = accountRepository.findByCardNumber(cardNumber)
-                .orElseThrow(() -> new RecordNotFoundException("This Card Number Not Valid"));
+                .orElseThrow(() -> {
+                    log.error("This Card Number Not Valid: {}", cardNumber);
+                    return new RecordNotFoundException("This Card Number Not Valid "+ cardNumber);
+                });
         log.info("This Card Number {}, is valid for this Account {}",cardNumber, account);
         return account;
     }
 
-    private void saveTransaction(Account account, double amount, String transactionType){
+    private void saveTransaction(Account account, double amount, TransactionType transactionType){
         Transaction transaction = new Transaction();
         transaction.setTransaction_type(transactionType);
         transaction.setAccount(account);

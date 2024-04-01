@@ -3,9 +3,11 @@ package org.example.bankapi.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.bankapi.entity.enums.TransactionType;
 
 import java.time.LocalDateTime;
 
@@ -24,11 +26,11 @@ public class Transaction {
     private Account account;
 
 
-    @Positive(message = "balance must be positive")
+    @PositiveOrZero(message = "Amount must be positive or zero")
     private double amount;
 
-    @NotBlank(message = "Transaction type must not be blank")
-    private String transaction_type;
+    @Enumerated(EnumType.STRING)
+    private TransactionType transaction_type;
 
     private LocalDateTime created_at;
     private String payment_method = "credit card";

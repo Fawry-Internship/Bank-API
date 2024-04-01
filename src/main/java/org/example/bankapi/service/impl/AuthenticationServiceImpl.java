@@ -58,7 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Account userAccount = accountMapper.toEntity(accountRequestDTO);
         String cardNumber = generateCardNumber();
         userAccount.setCardNumber(cardNumber);
-        log.info("This Card Number {}", cardNumber);
+        log.info("This Card Number for The new Account {}", cardNumber);
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
         log.info("This is UserAccount {}", userAccount);
 
@@ -74,8 +74,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private static String generateCardNumber() {
         UUID uuid = UUID.randomUUID();
-        String cardNumber = Long.toString(uuid.getMostSignificantBits(), 10);
+        String cardNumber = String.valueOf(Math.abs(uuid.getMostSignificantBits()));
+
+        int firstDigit = Character.getNumericValue(cardNumber.charAt(0));
+        int newFirstDigit = (firstDigit % 9) + 1;
+        cardNumber = newFirstDigit + cardNumber.substring(1);
+
+        if (cardNumber.startsWith("-")) {
+            cardNumber = cardNumber.substring(1); // Remove leading '-'
+        }
+
         return cardNumber.substring(0, 16);
     }
-
 }

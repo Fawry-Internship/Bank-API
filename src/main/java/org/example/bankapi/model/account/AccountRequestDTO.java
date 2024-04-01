@@ -22,7 +22,4 @@ public class AccountRequestDTO {
 
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-
-    @Positive(message = "balance must be positive")
-    private double balance;
 }

@@ -38,13 +38,21 @@ public class AccountServiceImpl implements AccountService {
                 .stream()
                 .map(transactionMapper::toDTO)
                 .collect(Collectors.toList());
+
+        if(transactionResponseDTOS.isEmpty()){
+            log.error("There is no Transactions for this Account with id {}", accountId);
+        }
+
         log.info("This All Transactions Details for This Account {}", transactionResponseDTOS);
         return transactionResponseDTOS;
     }
 
     private Account getCurrentAccount(Long accountId){
         Account currentAccount =  accountRepository.findById(accountId)
-                .orElseThrow(() -> new RecordNotFoundException("Account with Id " + accountId + "doesn't Exist"));
+                .orElseThrow(() -> {
+                    log.error("Account with Id {}, doesn't Exist", accountId);
+                    return new RecordNotFoundException("Account with Id " + accountId + "doesn't Exist");
+                });
         log.info("This is current account {}", currentAccount);
         return currentAccount;
     }
