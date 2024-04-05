@@ -17,13 +17,13 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @GetMapping("balance/{accountId}")
-    public ResponseEntity<Double> viewAccountBalanceById(@PathVariable(name = "accountId") Long accountId){
-        return new ResponseEntity<>(accountService.viewAccountBalanceById(accountId), HttpStatus.OK);
+    @GetMapping("balance")
+    public ResponseEntity<Double> viewCurrentAccountBalance(){
+        return new ResponseEntity<>(accountService.viewAuthenticatedAccountBalance(), HttpStatus.OK);
     }
 
-    @GetMapping("transactions/{accountId}")
-    public ResponseEntity<List<TransactionResponseDTO>>  viewAccountTransactionsById(@PathVariable(name = "accountId") Long accountId){
-        return new ResponseEntity<>(accountService.viewAccountTransactionsById(accountId), HttpStatus.OK);
+    @GetMapping("transactions")
+    public ResponseEntity<List<TransactionResponseDTO>> viewCurrentAccountTransactions(){
+        return new ResponseEntity<>(accountService.viewAuthenticatedAccountTransactions(), HttpStatus.OK);
     }
 }

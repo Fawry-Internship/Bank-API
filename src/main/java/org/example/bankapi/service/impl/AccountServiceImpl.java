@@ -8,6 +8,7 @@ import org.example.bankapi.exception.RecordNotFoundException;
 import org.example.bankapi.mapper.TransactionMapper;
 import org.example.bankapi.model.transaction.TransactionResponseDTO;
 import org.example.bankapi.service.AccountService;
+import org.example.bankapi.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,36 +23,38 @@ public class AccountServiceImpl implements AccountService {
     private final TransactionMapper transactionMapper;
 
     @Override
-    public Double viewAccountBalanceById(Long accountId) {
-        log.info("You want to view Balance for Account with id {}", accountId);
-        Account currentAccount = getCurrentAccount(accountId);
+    public Double viewAuthenticatedAccountBalance() {
+        String currentUserEmail = SecurityUtils.getCurrentUserEmail();
+        log.info("user with Email {} want to view his balance", currentUserEmail);
+        Account currentAccount = getCurrentAccount(currentUserEmail);
         Double accountBalance = currentAccount.getBalance();
         log.info("The current Balance is {}", accountBalance);
         return accountBalance;
     }
 
     @Override
-    public List<TransactionResponseDTO> viewAccountTransactionsById(Long accountId) {
-        log.info("You want to view Transactions for Account with id {}", accountId);
-        Account currentAccount = getCurrentAccount(accountId);
+    public List<TransactionResponseDTO> viewAuthenticatedAccountTransactions() {
+        String currentUserEmail = SecurityUtils.getCurrentUserEmail();
+        log.info("user with Email {} want to view his Transactions ", currentUserEmail);
+        Account currentAccount = getCurrentAccount(currentUserEmail);
         List<TransactionResponseDTO> transactionResponseDTOS = currentAccount.getTransactions()
                 .stream()
                 .map(transactionMapper::toDTO)
                 .collect(Collectors.toList());
 
         if(transactionResponseDTOS.isEmpty()){
-            log.error("There is no Transactions for this Account with id {}", accountId);
+            log.error("There is no Transactions for this user with Email {}", currentAccount);
         }
 
         log.info("This All Transactions Details for This Account {}", transactionResponseDTOS);
         return transactionResponseDTOS;
     }
 
-    private Account getCurrentAccount(Long accountId){
-        Account currentAccount =  accountRepository.findById(accountId)
+    private Account getCurrentAccount(String email){
+        Account currentAccount =  accountRepository.findByEmail(email)
                 .orElseThrow(() -> {
-                    log.error("Account with Id {}, doesn't Exist", accountId);
-                    return new RecordNotFoundException("Account with Id " + accountId + "doesn't Exist");
+                    log.error("Account with Email {}, doesn't Exist", email);
+                    return new RecordNotFoundException("Account with Email " + email + "doesn't Exist");
                 });
         log.info("This is current account {}", currentAccount);
         return currentAccount;
