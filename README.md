@@ -19,15 +19,15 @@ This project is a simple banking system API that allows users to authenticate, r
 
 ## Features
 
-
-| No. | Feature  | Description                            | Endpoint                               |
-|----:|----------|----------------------------------------|----------------------------------------|
-|  1. | Authenticate | Authenticate user credentials         | `POST /bank/auth/authenticate`        |
-|  2. | Register     | Register a new user                   | `POST /bank/auth/register`            |
-|  3. | Deposit  | Deposit money into an account          | `POST /bank/transaction/deposit`      |
-|  4. | Withdraw | Withdraw money from an account         | `POST /bank/transaction/withdraw`     |
-|  5. | View Account Balance     | View balance of an account           | `GET /bank/account/balance` |
-|  6. | View Account Transactions| View transactions of an account      | `GET /bank/account/transactions` |
+| No. | Feature                    | Description                               | Endpoint                            |
+|----:|----------------------------|-------------------------------------------|-------------------------------------|
+|  1. | Authenticate               | Authenticate user credentials             | `POST /bank/auth/authenticate`     |
+|  2. | Register                   | Register a new user                       | `POST /bank/auth/register`         |
+|  3. | Deposit                    | Deposit money into an account             | `POST /bank/transaction/deposit`   |
+|  4. | Withdraw                   | Withdraw money from an account            | `POST /bank/transaction/withdraw`  |
+|  5. | View Account Balance      | View balance of an account                | `GET /bank/account/balance`        |
+|  6. | View Account Transactions | View transactions of an account           | `GET /bank/account/transactions`   |
+|  7. | View Account Card Number  | View card number associated with an account | `GET /bank/account/cardNumber`   |
 
 ## ERD
 

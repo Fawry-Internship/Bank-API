@@ -24,9 +24,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Double viewAuthenticatedAccountBalance() {
-        String currentUserEmail = SecurityUtils.getCurrentUserEmail();
-        log.info("user with Email {} want to view his balance", currentUserEmail);
-        Account currentAccount = getCurrentAccount(currentUserEmail);
+        Account currentAccount = getCurrentAccount();
         Double accountBalance = currentAccount.getBalance();
         log.info("The current Balance is {}", accountBalance);
         return accountBalance;
@@ -34,9 +32,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<TransactionResponseDTO> viewAuthenticatedAccountTransactions() {
-        String currentUserEmail = SecurityUtils.getCurrentUserEmail();
-        log.info("user with Email {} want to view his Transactions ", currentUserEmail);
-        Account currentAccount = getCurrentAccount(currentUserEmail);
+        Account currentAccount = getCurrentAccount();
         List<TransactionResponseDTO> transactionResponseDTOS = currentAccount.getTransactions()
                 .stream()
                 .map(transactionMapper::toDTO)
@@ -50,11 +46,21 @@ public class AccountServiceImpl implements AccountService {
         return transactionResponseDTOS;
     }
 
-    private Account getCurrentAccount(String email){
-        Account currentAccount =  accountRepository.findByEmail(email)
+    @Override
+    public String getAuthenticatedAccountCardNumber() {
+        Account currentAccount = getCurrentAccount();
+        String accountCardNumber = currentAccount.getCardNumber();
+        log.info("The current Account Card Number is {}", accountCardNumber);
+        return accountCardNumber;
+    }
+
+    private Account getCurrentAccount(){
+        String currentUserEmail = SecurityUtils.getCurrentUserEmail();
+        log.info("user with Email {} want to view his Transactions ", currentUserEmail);
+        Account currentAccount =  accountRepository.findByEmail(currentUserEmail)
                 .orElseThrow(() -> {
-                    log.error("Account with Email {}, doesn't Exist", email);
-                    return new RecordNotFoundException("Account with Email " + email + "doesn't Exist");
+                    log.error("Account with Email {}, doesn't Exist", currentUserEmail);
+                    return new RecordNotFoundException("Account with Email " + currentUserEmail + "doesn't Exist");
                 });
         log.info("This is current account {}", currentAccount);
         return currentAccount;

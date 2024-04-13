@@ -26,4 +26,9 @@ public class AccountController {
     public ResponseEntity<List<TransactionResponseDTO>> viewCurrentAccountTransactions(){
         return new ResponseEntity<>(accountService.viewAuthenticatedAccountTransactions(), HttpStatus.OK);
     }
+
+    @GetMapping("cardNumber")
+    public ResponseEntity<String> getCurrentAccountCardNumber(){
+        return ResponseEntity.ok(accountService.getAuthenticatedAccountCardNumber());
+    }
 }

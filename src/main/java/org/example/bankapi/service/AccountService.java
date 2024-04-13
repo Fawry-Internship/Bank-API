@@ -9,4 +9,6 @@ public interface AccountService {
     Double viewAuthenticatedAccountBalance();
 
     List<TransactionResponseDTO> viewAuthenticatedAccountTransactions();
+
+    String getAuthenticatedAccountCardNumber();
 }
