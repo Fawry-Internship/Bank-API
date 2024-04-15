@@ -25,10 +25,11 @@ public class Transaction {
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
-
+    @Column(nullable = false)
     @PositiveOrZero(message = "Amount must be positive or zero")
     private double amount;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TransactionType transaction_type;
 

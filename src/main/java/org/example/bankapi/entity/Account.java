@@ -20,17 +20,19 @@ public class Account implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Size(min = 16, max = 16, message = "card number must be 16 characters long")
     private String cardNumber;
 
     @NotBlank(message = "Please provide a name")
+    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Email(message = "Please provide a valid email address")
     private String email;
 
+    @Column(nullable = false)
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
