@@ -9,7 +9,7 @@ import org.example.bankapi.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4300"})
 @RestController
 @RequestMapping("/bank/auth")
 @RequiredArgsConstructor
