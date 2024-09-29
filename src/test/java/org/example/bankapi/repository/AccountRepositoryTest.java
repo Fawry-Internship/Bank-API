@@ -1,6 +1,5 @@
 package org.example.bankapi.repository;
 
-import lombok.RequiredArgsConstructor;
 import org.example.bankapi.entity.Account;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
